@@ -28,3 +28,15 @@ C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\refint\CSharp.ConsoleAp
 C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\CSharp.ConsoleApp1.pdb
 C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\CSharp.ConsoleApp1.genruntimeconfig.cache
 C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\ref\CSharp.ConsoleApp1.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\CSharp.ConsoleApp1.csproj.AssemblyReference.cache
+C:\EOIFormación\c#\c-sharp\ConsoleApp1\obj\Debug\net8.0\CSharp.C.76146EFB.Up2Date

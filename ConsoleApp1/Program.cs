@@ -269,6 +269,11 @@ class Program
 
         // SWITCH
 
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("Tipo: ".PadLeft(15, ' '));
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        
         switch(reserva.tipo)
         {
             case 100:
@@ -290,7 +295,29 @@ class Program
                 break;
         }
 
-        
+        // Pintar si es fumador
+        // true -> Sí (rojo)
+        // false -> No (verde)
+
+        // Asignador condicional (condición) ? "Sí" : "No"
+
+        // Opción A
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("Fumador: ".PadLeft(15, ' '));
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
+        Console.ForegroundColor = reserva.fumador ? ConsoleColor.Red : ConsoleColor.Green;   
+        Console.WriteLine((reserva.fumador) ? "Sí" : "No");
+
+        // Opción B
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write("Fumador: ".PadLeft(15, ' '));
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
+        Console.ForegroundColor = reserva.fumador ? ConsoleColor.Red : ConsoleColor.Green;  
+        string esFumador = reserva.fumador ? "Sí" : "No";  
+        Console.WriteLine(esFumador);
+
 }
 
 
