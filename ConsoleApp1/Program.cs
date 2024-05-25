@@ -21,6 +21,7 @@ class Program
         DeclaracionVariables();
         ConversionVariables();
         SentenciasDeControl();
+        SentenciasDeRepeticion();
     }
 
 /// <summary>
@@ -321,7 +322,26 @@ class Program
 }
 
 
+    static void SentenciasDeRepeticion()
+    {
+        string[] frutas = {"naranja", "limón", "pomelo", "líma"};
+        object[] objetos = {"naranja", 10, new Alumno(), new Reserva()};
 
+        // Recorremos una colección con un contador FOR
+        // Mostramos el contenido de Array utilizando la posición de los elementos
+        // Python: for i in range(0, i < len(frutas), i += 1)
+
+        // Opción 1a
+        for(int i = 0; i < frutas.Length; i += 1)
+        {
+            Console.WriteLine($"Posición {i} -> {frutas[i]}");
+        }
+        Console.WriteLine("");
+
+        // Opcion 1b
+        for (int i = 0; i < frutas.Length; i += 1) Console.WriteLine($"Posición {i} -> {frutas[i]}");
+        Console.WriteLine("");
+    }
 
 
 
