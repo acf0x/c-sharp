@@ -18,9 +18,9 @@ class Program
         Console.WriteLine("Hello, World!");
         Console.WriteLine("Hello, Todos!");
         Console.Clear();
-        DeclaracionVariables();
-        ConversionVariables();
-        SentenciasDeControl();
+        // DeclaracionVariables();
+        // ConversionVariables();
+        // SentenciasDeControl();
         SentenciasDeRepeticion();
     }
 
@@ -341,11 +341,229 @@ class Program
         // Opcion 1b
         for (int i = 0; i < frutas.Length; i += 1) Console.WriteLine($"Posición {i} -> {frutas[i]}");
         Console.WriteLine("");
+
+        // Recorremos una colección utilizando un FOREACH
+        // Mostramos el contenido de Array utilizando los valores elementos
+        // Python: for fruta in frutas
+        foreach (string fruta in frutas)
+        {
+            Console.WriteLine($" -> {fruta}");
+        }
+        Console.WriteLine("");
+
+        // Recorremos una colección utilizando un WHILE
+        int contador = 0;
+        while (contador < frutas.Length)
+        {
+            Console.WriteLine($"Posición {contador} -> {frutas[contador]}");
+            contador++;
+        }
+        Console.WriteLine("");
+
+        contador = 0;
+        while (true)
+        {
+            Console.WriteLine($"Posición {contador} -> {frutas[contador]}");
+            contador++;
+            if (contador >= frutas.Length) break;
+        }
+        Console.WriteLine("");
+
+        // Recorremos una colección utilizando un DO/WHILE
+        // Usado principalmente cuando queremos que se ejecute AL MENOS 1 vez (ej, comprobar conex.)
+        contador = 0;
+        do
+        {
+            Console.WriteLine($"Posición {contador} -> {frutas[contador]}");
+            contador++;
+        } while (contador < frutas.Length);
+        Console.WriteLine("");
+    
+
+        //////////////////////////////////////////////////////////////////////////////////
+
+        decimal[] numeros = {10, 5, 345, 52, 13, 1000, 83};
+
+        decimal suma = 0;
+        decimal suma2 = 0;
+        decimal suma3 = 0;
+        decimal max = numeros[0];
+        decimal min = numeros[0];
+        decimal max2 = numeros[0];
+        decimal min2 = numeros[0];
+        decimal max3 = numeros[0];
+        decimal min3 = numeros[0];
+
+        contador = 0;
+
+        // Mostramos la suma y la media, el número mayor y el menor
+
+        // FOR
+
+        for (int i = 0; i < numeros.Length; i += 1)
+        {
+            suma += numeros[i];
+            if (numeros[i] > max)
+            {
+                max = numeros[i];
+            }
+            if (numeros[i] < min)
+            {
+                min = numeros[i];
+            }
+        }
+        decimal media = suma/numeros.Length;
+        Console.WriteLine($"SUMA FOR: {suma}");
+        Console.WriteLine($"MEDIA FOR: {media.ToString("N2")}");
+        Console.WriteLine($"MAX FOR: {max}");
+        Console.WriteLine($"MIN FOR: {min}");
+        Console.WriteLine();
+
+        // FOREACH
+
+        foreach (int numero in numeros)
+        {
+            suma2 += numero;
+            if (numero > max2) max2 = numero;
+            if (numero < min2) min2 = numero;
+        }
+        decimal media2 = suma/numeros.Length;
+        Console.WriteLine($"SUMA FOREACH: {suma2}");
+        Console.WriteLine($"MEDIA FOREACH: {media2.ToString("N2")}");
+        Console.WriteLine($"MAX FOREACH: {max2}");
+        Console.WriteLine($"MIN FOREACH: {min2}");
+        Console.WriteLine();
+
+        // WHILE
+        while (contador < numeros.Length)
+        {
+            if (numeros[contador] > max3)
+            {
+                max3 = numeros[contador];
+            }
+            if (numeros[contador] < min3)
+            {
+                min3 = numeros[contador];
+            }
+            suma3 += numeros[contador];
+            contador += 1;
+        }
+        decimal media3 = suma/numeros.Length;
+        Console.WriteLine($"SUMA WHILE: {suma3}");
+        Console.WriteLine($"MEDIA WHILE: {media3.ToString("N2")}");
+        Console.WriteLine($"MAX WHILE: {max3}");
+        Console.WriteLine($"MIN WHILE: {min3}");
+        Console.WriteLine();
+
+        // Ejemplo de obtener información con métedos de LINQ
+
+        Console.WriteLine($"Suma total: {numeros.Sum()}");
+        Console.WriteLine($"Media: {numeros.Average().ToString("N2")}");
+        Console.WriteLine($"Número mayor: {numeros.Max()}");
+        Console.WriteLine($"Número menor: {numeros.Min()}");
+
+    static void ControlDeExcepciones()
+    {
+
+        // EJEMPLO EN PYTHON
+        // numero1 = 5
+        // numero2 = 100
+
+        // try:    
+        //     numero3 = numero2 / numero1
+        //     print(f"Valor de número 3: {numero3}")
+
+        //     f = open("miFichero.txt")
+        // except ZeroDivisionError as err:
+        //     print(f"-> {err}")
+        //     print(f"-> {type(err)}")
+        // except FileNotFoundError as err:
+        //     print(f"-> {err}")
+        //     print(f"-> {type(err)}")
+        // except Exception as err:
+        //     print(f"{err}")
+        //     print(f"{type(err)}")
+        // finally:
+        //     print(f"F I N")
+
+
+        int numero1 = 5;
+        int numero2 = 100;
+
+        try
+        {
+            int numero3 = numero2 / numero1;
+            Console.WriteLine($"El valor de número 3 es {numero3}");
+        }
+        catch (DivideByZeroException err)
+        {
+            Console.WriteLine("Excepción específica");
+            Console.WriteLine($"Mensaje: {err.Message}");
+            Console.WriteLine($"Tipo: {err.GetType()}");
+        }
+        catch (FileNotFoundException err)
+        {
+            Console.WriteLine("Excepción específica");
+            Console.WriteLine($"Mensaje: {err.Message}");
+            Console.WriteLine($"Tipo: {err.GetType()}");
+        }
+        catch (Exception err)
+        {   
+            Console.WriteLine("Excepción genérica");
+            Console.WriteLine($"Mensaje: {err.Message}");
+            Console.WriteLine($"Tipo: {err.GetType()}");
+        }
+        finally
+        {
+            Console.WriteLine("FIN");
+        }
+        Console.WriteLine("");
+
+        /*
+        try:
+            print("Nivel 1")
+
+            print("Inicio Nivel 2")
+
+            try:
+                print("Nivel 2")
+                print(100/0)
+            except Exception as err:
+                raise
+                print(f"Nivel 2: {err}")
+            finally:
+                print("Fin Nivel 2")
+        except Exception as err:
+            print(f"Nivel 1: {err}")
+        */
+        try
+        {
+            Console.WriteLine("NIVEL 1");
+
+            Console.WriteLine(" -> Inicio Nivel 2");
+            try
+            {
+                Console.WriteLine("NIVEL 2");
+                int n1 = 0;
+                int n2 = 100;
+                int n3 = n2 / n1;
+            }
+            catch (Exception e)
+            {                
+                Console.WriteLine($"Error 2: {e.Message}");
+                throw new Exception("No se puede dividir por cero");
+            }
+            finally
+            {
+                Console.WriteLine(" -> Fin Nivel 2");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error 1: {e.Message}");
+            throw;
+        }
     }
-
-
-
-
 }
-
+}
 
