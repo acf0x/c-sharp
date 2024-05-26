@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y739fk+qkjLDfulkcImByn51NRtYblhra5Qq9+k00j0sZcEAsa7KG8D6nPB3FeW/SSgS3RU1vaXvvPxytL+DEg==",
+  "dgSpecHash": "ngvFf3oA2Q1tKwfmNHDHztZoXQUl1HsErQyq+QTZh+RN+67lb/pEXutEjSwbuJ17qKpbhfIL4XRNtF2y6XdSOg==",
   "success": true,
-  "projectFilePath": "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp1\\CSharp.ConsoleApp1.csproj",
+  "projectFilePath": "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp1\\ConsoleApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alvar\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.4\\microsoft.entityframeworkcore.8.0.4.nupkg.sha512",
     "C:\\Users\\alvar\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.4\\microsoft.entityframeworkcore.abstractions.8.0.4.nupkg.sha512",
