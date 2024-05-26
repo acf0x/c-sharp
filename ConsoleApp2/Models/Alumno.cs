@@ -14,8 +14,12 @@ public class Alumno
         get 
         { 
             return nombre.Trim().ToLower(); 
-            }
-        set { nombre = value; }
+        }
+        set 
+        { 
+            if(value.Length < 2) nombre = "";
+            else nombre = value; 
+        }
 
 
     }
