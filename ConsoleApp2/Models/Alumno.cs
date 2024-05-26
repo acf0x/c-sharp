@@ -21,6 +21,16 @@ public class Alumno
             else nombre = value; 
         }
 
+    public int edad
+    {
+        get { return edad; }
+        set 
+        {
+            if(value < 1 || value > 120) edad = 0;
+            else edad = value;
+        }
+
+    }
 
     }
 
