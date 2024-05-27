@@ -1,35 +1,91 @@
-﻿using System.Security.Cryptography;
-using ConsoleApp1.Models;
+﻿using ConsoleApp1.Models;
 
 namespace ConsoleApp1;
 
 /// <summary>
-/// La clase Program ocntiene el método Main, donde inicia la ejecucción del programa
+/// La clase Program contiene el método Main, donde inicia la ejecución del programa
 /// </summary>
-
 class Program
-
 {
     /// <summary>
     /// Método Main, inicio del programa
     /// </summary>
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
-        Console.WriteLine("Hello, Todos!");
-        Console.Clear();
-        // DeclaracionVariables();
-        // ConversionVariables();
-        // SentenciasDeControl();
-        SentenciasDeRepeticion();
+        while (true)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("".PadRight(56, '*'));
+            Console.WriteLine("*  DEMO Y EJERCICIOS".PadRight(55) + "*");
+            Console.WriteLine("".PadRight(56, '*'));
+            Console.WriteLine("*".PadRight(55) + "*");
+            Console.WriteLine("*  1. Declaración de Variables".PadRight(55) + "*");
+            Console.WriteLine("*  2. Conversión de Variables".PadRight(55) + "*");
+            Console.WriteLine("*  3. Sentencias de Control".PadRight(55) + "*");
+            Console.WriteLine("*  4. Sentencias de Repetición".PadRight(55) + "*");
+            Console.WriteLine("*  5. Control de Excepciones".PadRight(55) + "*");
+            Console.WriteLine("*  9. Salir".PadRight(55) + "*");
+            Console.WriteLine("*".PadRight(55) + "*");
+            Console.WriteLine("".PadRight(56, '*'));
+
+            Console.WriteLine(Environment.NewLine);
+            Console.Write("   Opción: ");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            int.TryParse(Console.ReadLine(), out int opcion);
+            switch (opcion)
+            {
+                case 1:
+                    Console.Clear();
+                    DeclaracionVariables();
+                    break;
+                case 2:
+                    Console.Clear();
+                    ConversionVariables();
+                    break;
+                case 3:
+                    Console.Clear();
+                    SentenciasDeControl();
+                    break;
+                case 4:
+                    Console.Clear();
+                    SentenciasDeRepeticion();
+                    break;
+                case 5:
+                    Console.Clear();
+                    ControlDeExcepciones();
+                    break;
+                case 9:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    return;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(Environment.NewLine + $"La opción {opcion} no es valida.");
+                    break;
+            }
+
+            Console.WriteLine(Environment.NewLine);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Pulsa una tecla para continuar...");
+            Console.ReadKey();
+        }
     }
 
-/// <summary>
-/// Declaración de variables
-/// </summary>
+    /// <summary>
+    /// Declaración de variables
+    /// </summary>
     static void DeclaracionVariables()
     {
-        string texto = "Hola Mundo !!";
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Declaración de variables
+        //  [tipo] [nombre variable] = [valor inicial (opcional)]
+        //
+        ///////////////////////////////////////////////////////////////
+
+        string texto = "Hola Mundo !!!";
         string otroTexto;
         System.String texto2 = "Mi nombre es Borja";
 
@@ -38,15 +94,22 @@ class Program
         System.Int32 numero2 = 0;
 
         decimal a, b, c;
-    
 
-    // Instanciamos un objeto Alumno y modificamos sus propiedades o variables
+
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Declaración de variables que contienen objetos
+        //  [tipo] [nombre variable] = [new constructor (opcional)]
+        //
+        ///////////////////////////////////////////////////////////////        
+
+        // Instanciamos un objeto Alumno y posteriormente modificamos sus propiedades o variables
         Alumno alumno = new Alumno();
-        alumno.Nombre = "Borja";
+        alumno.Nombre = "Ana";
         alumno.Apellidos = "Sanz";
         alumno.Edad = 33;
 
-    // Instanciamos un objeto Alumno y asignamos valores a sus propiedades o variables
+        // Instanciamos un objeto Alumno y al mismo tiempo asignamos valores a sus propiedades o variables
         Alumno alumno1 = new Alumno()
         {
             Nombre = "Julian",
@@ -54,94 +117,138 @@ class Program
             Edad = 25
         };
 
-        // Instanciamos un objeto Alumno usando VAR, OBJECT, DYNAMIC
-        // Las variables con tipo implícito (var) se deben inicializar (dar valor)
+
+        ///////////////////////////////////////////////////////////////      
+        //
+        // Instaciamos un objeto Alumno usando VAR, OBJECT, DYNAMIC
+        //
+        ///////////////////////////////////////////////////////////////                
+
+        // Las variables con tipo implícito VAR siempre deben inicializar
         var alumno2 = new Alumno();
-        alumno2.Nombre = "maría josé";
+        alumno2.Nombre = "María José";
 
-        Console.WriteLine($"Tipo2: {alumno2.GetType()}");
-        Console.WriteLine($"Nombre2: {alumno2.Nombre}" +Environment.NewLine);
-        
+        Console.WriteLine($"Tipo 2: {alumno2.GetType()}");
+        Console.WriteLine($"Nombre 2: {alumno2.Nombre}" + Environment.NewLine);
 
-    // Object tiene la capacidad de contener cualquier tipo de dato, se aplica en diseño
-    // No permite acceder a los miembros (args) del objeto, para acceder se debe aplicar la conversión
+
+        // OBJECT tiene la capacidad de contener cualquier tipo de dato
+        // Comprobaciones de código en la etapa de diseño
+
+        // Las variables de tipo OBJECT no permite acceder a los miembros del objeto
+        // para accder tenemos que aplicar la conversión
+
         Object alumno3 = new Alumno();
         ((Alumno)alumno3).Nombre = "Isabel";
-        // alumno3.Nombre = "Isabel"; <- no funciona por ser un object
+        // alumno3.Nombre = "Isabel"; <- No funciona por ser un Object
 
-        Console.WriteLine($"Tipo3: {alumno3.GetType()}");
-        Console.WriteLine($"Nombre3: {((Alumno)alumno3).Nombre}");
-        // Console.WriteLine($"Nombre3: {alumno3.Nombre}"); <- no funciona por ser un object
+        Console.WriteLine($"Tipo 3: {alumno3.GetType()}");
+        Console.WriteLine($"Nombre 3: {((Alumno)alumno3).Nombre}\n");
+        // Console.WriteLine($"Nombre 3: {alumno3.Nombre}"); <- No funciona por ser un Object
 
-    // dynamic tiene la capacidad de contener cualquier tipo de dato, se aplica en ejecución.
-    // si ponemos p.e. "miNombre" u otro arg no contemplado, solo da errores en el run, pero en el build no los da
+
+        // dynamic tiene la capacidad de contener cualquier tipo de datos
+        // Comprobaciones de código en ejecución, NO SE COMPRUEBA CUANDO COMPILAMOS
         dynamic alumno4 = new Alumno();
-        alumno4.Nombre = "antonio josé";
+        alumno4.Nombre = "Antonio José";
         alumno4.Edad = 30;
 
-        Console.WriteLine($"Tipo4: {alumno4.GetType()}");
-        Console.WriteLine($"Nombre4: {alumno4.Nombre}" +Environment.NewLine);
-    
-    // Formula C# versiones más actuales
+        Console.WriteLine($"Tipo 4: {alumno4.GetType()}");
+        Console.WriteLine($"Nombre 4: {alumno4.Nombre}" + Environment.NewLine);
+
+
+        // Alternativas de sintaxis propio de las versiones más recientes de C# y .NET Core
         Alumno alumno5 = new();
         alumno5.Nombre = "Borja";
-    
-        Console.WriteLine($"Tipo5: {alumno5.GetType()}");
-        Console.WriteLine($"Nombre5: {alumno5.Nombre}" +Environment.NewLine);
-    
+
+        Console.WriteLine($"Tipo 5: {alumno5.GetType()}");
+        Console.WriteLine($"Nombre 5: {alumno5.Nombre}" + Environment.NewLine);
+
+
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Declaración de un Array
+        //  [tipo][] [nombre variable] = [valor inicial]
+        //
+        ///////////////////////////////////////////////////////////////
+
+        int[] numeros = new int[10];
+        int[] numeros2 = { 10, 5, 345, 55, 13, 1000, 83 };
+
+        numeros[7] = 32;
+        Console.WriteLine(numeros2[5]);
+
+        Alumno[] alumnos = new Alumno[20];
+        alumnos[0] = new Alumno();
+        alumnos[1] = new Alumno();
+
+        Alumno[] alumnos2 = {
+                new Alumno() { Nombre = "Julian", Apellidos = "Sánchez", Edad = 24 },
+                new Alumno(),
+                new Alumno()
+            };
+
+        Alumno[] alumnos3 = { new Alumno(), new Alumno(), new Alumno() };
+
+        alumnos3[1].Nombre = "Ana María";
+        alumnos3[1].Apellidos = "Sánchez";
+        alumnos3[1].Edad = 24;
+        Console.WriteLine(alumnos3[1].Nombre);
     }
 
-/// <summary>
-/// Conversión de variables
-/// </summary>
+    /// <summary>
+    /// Conversión de variables
+    /// </summary>
     static void ConversionVariables()
     {
-        byte num1 = 10;         // 8bits
-        int num2 = 30;          // 32bits
+        byte num1 = 10;         //  8 bits
+        int num2 = 32;          // 32 bits
         string num3 = "42";     // bits variable según contenido
 
-        Console.WriteLine($"Num1 (byte): {num1} - Num2 (int): {num2} - Num3 (string): {num3}");
+        Console.WriteLine($"Num 1 (byte): {num1} - Num 2 (int): {num2} - Num 3 (string): {num3}" + Environment.NewLine);
 
-        // Conversión implícita, posible si el receptor es de mayor tamaño en bits
+        // Conversión implicita, SI posible si el receptor es de mayor tamaño en bits
         num2 = num1;
 
-        Console.WriteLine($"Después de la conversión implícita");
-        Console.WriteLine($"Num1 (byte): {num1} - Num2 (int): {num2} - Num3 (string): {num3}");
+        // Conversión implicita, NO es posible si el receptor es de menor tamaño en bits
+        // No se puede convertir implícitamente el tipo 'int' en 'byte'.
+        // num1 = num2;
 
-        // num1 = num2 <- no sería posible, la opción es hacer una conversión EXPLÍCITA, indicada por el programador 
-        // será válida si el valor está comprendido entre los valores de la variable receptora
-        num2 = 14500032;
-        num1 = (byte)num2; // <- lo va a truncar. Coge de los 32 bits (32 num binarios) 8 y los transforma al valor decimal correspondiente
+        // La opción es una conversión explicita, indicada por el programador
+        // Es valida si el valor esta comprendido entre los valores de la varible receptora
+        num2 = 32;
+        num1 = (byte)num2;
 
-        Console.WriteLine($"Después de la conversión explícita");
-        Console.WriteLine($"Num1 (byte): {num1} - Num2 (int): {num2} - Num3 (string): {num3}");
-
-        // Conversión explícita, utilizando los métodos del objeto CONVERT
-        // aquí cuando no se puede convertir, no lo trunca como antes, sino que da una excepción.
-        // lo máximo sería 255
-        num2 = 255;
+        // Conversión explicita, utilizando los métodos del objeto CONVERT
+        // Para valores fuera del rango de la variable receptora genera una excepción
+        num2 = 32;
         num1 = Convert.ToByte(num2);
-        Console.WriteLine($"Después de la conversión explícita2");
-        Console.WriteLine($"Num1 (byte): {num1} - Num2 (int): {num2} - Num3 (string): {num3}");
+        num1 = Convert.ToByte(num3);
+
+        Console.WriteLine("Después de las conversiones");
+        Console.WriteLine($"Num 1 (byte): {num1} - Num 2 (int): {num2} - Num 3 (string): {num3}\n");
 
 
         ///////////////////////////////////////////////////////////////                
         // Transformaciones de STRING a cualquier tipo de dato númerico
-        ///////////////////////////////////////////////////////////////     
+        ///////////////////////////////////////////////////////////////                
+
+        // Utilizando los métodos del objeto CONVERT
         num1 = Convert.ToByte(num3);
         num2 = Convert.ToInt32(num3);
-    
-        // Conversión explícita, utilizando el método Parse
+
+        // Conversión explicita, utilizando el método Parse
         num1 = byte.Parse(num3);
-    
-        // Conversión explícita, utilizando el método TryParse
+
+        // Conversión explicita, utilizando el método TryParse
         byte.TryParse(num3, out num1);
 
+        // El método .TryParse retorna True/False dependiendo de si la transformación es posible
+        // El resultao de la transformación de almacena en num4, siendo 0 si la tranformación no es posible
         num3 = "102";
         int num4;
         bool result = int.TryParse(num3, out num4);
-        Console.WriteLine($"Resultado: {result} - Valor Num 4: {num4}");
-        
+
         // En este ejemplo solo comprobamos si la transformación es posible.
         // Mediante [out _] indicamos que no queremos el resultado de la transformación  
         var esEntero = int.TryParse(num3, out _);
@@ -150,15 +257,23 @@ class Program
         Console.WriteLine($"Resultado Num 5: {esEntero}");
     }
 
-
+    /// <summary>
+    /// Sentencias de Control, uso de IF/ELSE y SWITCH
+    /// </summary>
     static void SentenciasDeControl()
     {
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Sentencias de Control, uso de IF/ELSE y SWITCH
+        //
+        ///////////////////////////////////////////////////////////////
+
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.White;
 
         // Uso de IF/ELSE
         Reserva reserva = new Reserva();
-        
+
         Console.Write("ID de la Reserva: ");
         reserva.id = Console.ReadLine();
 
@@ -195,14 +310,14 @@ class Program
         {
             reserva.fumador = false;
         }
-        else 
+        else
         {
             reserva.fumador = false;
             Console.WriteLine($"El valor {fumador} no es valido, pero se asigna habitación de no fumador.");
         }
 
         // Opción 3, utilizando IF/ELSE (sin bloques)
-        if (fumador.ToLower().Trim() == "si" || fumador.ToLower().Trim() == "sí") reserva.fumador = true;        
+        if (fumador.ToLower().Trim() == "si" || fumador.ToLower().Trim() == "sí") reserva.fumador = true;
         else reserva.fumador = false;
 
         // Opción 4a, asignación condicional con ? :
@@ -214,7 +329,7 @@ class Program
         reserva.fumador = (fumador.ToLower().Trim() == "si" || fumador.ToLower().Trim() == "sí");
 
         // Opción 5, utilizando SWITCH
-        switch(fumador.ToLower().Trim())
+        switch (fumador.ToLower().Trim())
         {
             case "si":
                 reserva.fumador = true;
@@ -230,7 +345,7 @@ class Program
                 Console.WriteLine($"El valor {fumador} no es valido, pero se asigna habitación de no fumador.");
                 break;
         }
-        
+
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("ID Reserva: ".PadLeft(15, ' '));
@@ -255,44 +370,43 @@ class Program
         Console.Write("Tipo: ".PadLeft(15, ' '));
         Console.ForegroundColor = ConsoleColor.Yellow;
 
-        if (reserva.tipo == 100) {
-            Console.WriteLine($"Habitación individual");}
-        else if (reserva.tipo == 200) {
-            Console.WriteLine($"Habitación doble");}
-        else if (reserva.tipo == 300) {
-            Console.WriteLine($"Habitación Junior Suite");}
-        else if (reserva.tipo == 400) {
+        if (reserva.tipo == 100) Console.WriteLine("Habitación Individual");
+        else if (reserva.tipo == 200) Console.WriteLine("Habitación Doble");
+        else if (reserva.tipo == 300) Console.WriteLine("Habitación Junior Suite");
+        else if (reserva.tipo == 400)
+        {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"Habitación Suite");}
-        else {
+            Console.WriteLine("Habitación Suite");
+        }
+        else
+        {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{reserva.tipo}, tipo de habitación desconocido");}
+            Console.WriteLine($"{reserva.tipo}, desconocido");
+        }
 
         // SWITCH
-
-
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("Tipo: ".PadLeft(15, ' '));
         Console.ForegroundColor = ConsoleColor.Yellow;
-        
-        switch(reserva.tipo)
+
+        switch (reserva.tipo)
         {
             case 100:
-                Console.WriteLine($"Habitación individual");
+                Console.WriteLine("Habitación Individual");
                 break;
             case 200:
-                Console.WriteLine($"Habitación doble");
+                Console.WriteLine("Habitación Doble");
                 break;
             case 300:
-                Console.WriteLine($"Habitación Junior Suite");
+                Console.WriteLine("Habitación Junior Suite");
                 break;
             case 400:
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"Habitación Suite");
+                Console.WriteLine("Habitación Suite");
                 break;
             default:
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"{reserva.tipo}, tipo de habitación desconocido");
+                Console.WriteLine($"{reserva.tipo}, desconocido");
                 break;
         }
 
@@ -307,32 +421,42 @@ class Program
         Console.Write("Fumador: ".PadLeft(15, ' '));
         Console.ForegroundColor = ConsoleColor.Yellow;
 
-        Console.ForegroundColor = reserva.fumador ? ConsoleColor.Red : ConsoleColor.Green;   
-        Console.WriteLine((reserva.fumador) ? "Sí" : "No");
+        Console.ForegroundColor = (reserva.fumador == true) ? ConsoleColor.Red : ConsoleColor.Green;
+        Console.ForegroundColor = (reserva.fumador) ? ConsoleColor.Red : ConsoleColor.Green;
+        string fuma = (reserva.fumador) ? "Sí" : "No";
+        Console.WriteLine(fuma);
 
         // Opción B
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("Fumador: ".PadLeft(15, ' '));
         Console.ForegroundColor = ConsoleColor.Yellow;
 
-        Console.ForegroundColor = reserva.fumador ? ConsoleColor.Red : ConsoleColor.Green;  
-        string esFumador = reserva.fumador ? "Sí" : "No";  
-        Console.WriteLine(esFumador);
+        Console.ForegroundColor = (reserva.fumador) ? ConsoleColor.Red : ConsoleColor.Green;
+        Console.WriteLine((reserva.fumador) ? "Sí" : "No");
 
-}
+        Console.ForegroundColor = ConsoleColor.Gray;
+    }
 
-
+    /// <summary>
+    /// Sentencias de Control, uso de FOR, FOREACH, WHILE y DO/WHILE
+    /// </summary>
     static void SentenciasDeRepeticion()
     {
-        string[] frutas = {"naranja", "limón", "pomelo", "líma"};
-        object[] objetos = {"naranja", 10, new Alumno(), new Reserva()};
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Sentencias de Control, uso de FOR, FOREACH, WHILE y DO/WHILE
+        //
+        ///////////////////////////////////////////////////////////////
+
+        string[] frutas = { "naranja", "limón", "pomelo", "líma" };
+        object[] objetos = { "naranja", 10, new Alumno(), new Reserva() };
 
         // Recorremos una colección con un contador FOR
         // Mostramos el contenido de Array utilizando la posición de los elementos
         // Python: for i in range(0, i < len(frutas), i += 1)
 
         // Opción 1a
-        for(int i = 0; i < frutas.Length; i += 1)
+        for (int i = 0; i < frutas.Length; i += 1)
         {
             Console.WriteLine($"Posición {i} -> {frutas[i]}");
         }
@@ -370,7 +494,6 @@ class Program
         Console.WriteLine("");
 
         // Recorremos una colección utilizando un DO/WHILE
-        // Usado principalmente cuando queremos que se ejecute AL MENOS 1 vez (ej, comprobar conex.)
         contador = 0;
         do
         {
@@ -378,114 +501,100 @@ class Program
             contador++;
         } while (contador < frutas.Length);
         Console.WriteLine("");
-    
+
 
         //////////////////////////////////////////////////////////////////////////////////
 
-        decimal[] numeros = {10, 5, 345, 52, 13, 1000, 83};
+        decimal[] numeros = { 10, 5, 345, 52, 13, 1000, 83 };
 
         decimal suma = 0;
-        decimal suma2 = 0;
-        decimal suma3 = 0;
-        decimal max = numeros[0];
+        decimal max = 0;
         decimal min = numeros[0];
-        decimal max2 = numeros[0];
-        decimal min2 = numeros[0];
-        decimal max3 = numeros[0];
-        decimal min3 = numeros[0];
-
-        contador = 0;
-
-        // Mostramos la suma y la media, el número mayor y el menor
 
         // FOR
-
-        for (int i = 0; i < numeros.Length; i += 1)
+        for (int i = 0; i < numeros.Length; i = i + 1)
         {
-            suma += numeros[i];
-            if (numeros[i] > max)
-            {
-                max = numeros[i];
-            }
-            if (numeros[i] < min)
-            {
-                min = numeros[i];
-            }
+            suma = suma + numeros[i];
+            if (numeros[i] > max) max = numeros[i];
+            if (numeros[i] < min) min = numeros[i];
         }
-        decimal media = suma/numeros.Length;
-        Console.WriteLine($"SUMA FOR: {suma}");
-        Console.WriteLine($"MEDIA FOR: {media.ToString("N2")}");
-        Console.WriteLine($"MAX FOR: {max}");
-        Console.WriteLine($"MIN FOR: {min}");
-        Console.WriteLine();
+
+        // Mostramos la suma y la media, el número mayor y el menor 
+        Console.WriteLine("CALCULADO CON FOR");
+        Console.WriteLine($"Suma total: {suma}");
+        Console.WriteLine($"Media: {(suma / numeros.Length).ToString("N2")}");
+        Console.WriteLine($"Número mayor: {max}");
+        Console.WriteLine($"Número menor: {min}");
+        Console.WriteLine("");
 
         // FOREACH
+        suma = 0;
+        max = 0;
+        min = numeros[0];
 
-        foreach (int numero in numeros)
+        foreach (var num in numeros)
         {
-            suma2 += numero;
-            if (numero > max2) max2 = numero;
-            if (numero < min2) min2 = numero;
+            suma += num;
+            if (num > max) max = num;
+            if (num < min) min = num;
         }
-        decimal media2 = suma/numeros.Length;
-        Console.WriteLine($"SUMA FOREACH: {suma2}");
-        Console.WriteLine($"MEDIA FOREACH: {media2.ToString("N2")}");
-        Console.WriteLine($"MAX FOREACH: {max2}");
-        Console.WriteLine($"MIN FOREACH: {min2}");
-        Console.WriteLine();
+
+        Console.WriteLine("CALCULADO CON FOREACH");
+        Console.WriteLine($"Suma total: {suma}");
+        Console.WriteLine($"Media: {(suma / numeros.Length).ToString("N2")}");
+        Console.WriteLine($"Número mayor: {max}");
+        Console.WriteLine($"Número menor: {min}");
+        Console.WriteLine("");
 
         // WHILE
+        suma = 0;
+        max = 0;
+        min = numeros[0];
+
+        contador = 0;
         while (contador < numeros.Length)
         {
-            if (numeros[contador] > max3)
-            {
-                max3 = numeros[contador];
-            }
-            if (numeros[contador] < min3)
-            {
-                min3 = numeros[contador];
-            }
-            suma3 += numeros[contador];
-            contador += 1;
+            suma += numeros[contador];
+            if (numeros[contador] > max) max = numeros[contador];
+            if (numeros[contador] < min) min = numeros[contador];
+            contador++;
         }
-        decimal media3 = suma/numeros.Length;
-        Console.WriteLine($"SUMA WHILE: {suma3}");
-        Console.WriteLine($"MEDIA WHILE: {media3.ToString("N2")}");
-        Console.WriteLine($"MAX WHILE: {max3}");
-        Console.WriteLine($"MIN WHILE: {min3}");
-        Console.WriteLine();
+
+        Console.WriteLine("CALCULADO CON WHILE");
+        Console.WriteLine($"Suma total: {suma}");
+        Console.WriteLine($"Media: {(suma / numeros.Length).ToString("N2")}");
+        Console.WriteLine($"Número mayor: {max}");
+        Console.WriteLine($"Número menor: {min}");
+        Console.WriteLine("");
+
 
         // Ejemplo de obtener información con métedos de LINQ
-
+        Console.WriteLine("CALCULADO CON LINQ");
         Console.WriteLine($"Suma total: {numeros.Sum()}");
         Console.WriteLine($"Media: {numeros.Average().ToString("N2")}");
         Console.WriteLine($"Número mayor: {numeros.Max()}");
         Console.WriteLine($"Número menor: {numeros.Min()}");
+    }
 
+    /// <summary>
+    /// Control de Excepciones, uso de TRY/CATCH/FINALLY
+    /// </summary>
     static void ControlDeExcepciones()
     {
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Control de Excepciones, uso de TRY/CATCH/FINALLY
+        //
+        ///////////////////////////////////////////////////////////////
 
-        // EJEMPLO EN PYTHON
-        // numero1 = 5
-        // numero2 = 100
-
-        // try:    
-        //     numero3 = numero2 / numero1
-        //     print(f"Valor de número 3: {numero3}")
-
-        //     f = open("miFichero.txt")
-        // except ZeroDivisionError as err:
-        //     print(f"-> {err}")
-        //     print(f"-> {type(err)}")
-        // except FileNotFoundError as err:
-        //     print(f"-> {err}")
-        //     print(f"-> {type(err)}")
-        // except Exception as err:
-        //     print(f"{err}")
-        //     print(f"{type(err)}")
-        // finally:
-        //     print(f"F I N")
-
+        // Cuando se produce una excepción en el código de un bloque TRY 
+        // la excepción se controla mediante los bloques CATCH.
+        //
+        // Primero especificamos todas las excepciones especificas y luego
+        // la excepción genérica.
+        //
+        // El bloque FINALLY garantiza la ejecución de código tanto si se
+        // produce una excepción como sino.
 
         int numero1 = 5;
         int numero2 = 100;
@@ -508,7 +617,7 @@ class Program
             Console.WriteLine($"Tipo: {err.GetType()}");
         }
         catch (Exception err)
-        {   
+        {
             Console.WriteLine("Excepción genérica");
             Console.WriteLine($"Mensaje: {err.Message}");
             Console.WriteLine($"Tipo: {err.GetType()}");
@@ -519,23 +628,12 @@ class Program
         }
         Console.WriteLine("");
 
-        /*
-        try:
-            print("Nivel 1")
 
-            print("Inicio Nivel 2")
+        // THROW permite generar mediante código una excepción
+        //
+        // Dentro de un bloque CATCH reenvia la excepción a un nivel TRY/CATCH
+        // superior.
 
-            try:
-                print("Nivel 2")
-                print(100/0)
-            except Exception as err:
-                raise
-                print(f"Nivel 2: {err}")
-            finally:
-                print("Fin Nivel 2")
-        except Exception as err:
-            print(f"Nivel 1: {err}")
-        */
         try
         {
             Console.WriteLine("NIVEL 1");
@@ -549,7 +647,7 @@ class Program
                 int n3 = n2 / n1;
             }
             catch (Exception e)
-            {                
+            {
                 Console.WriteLine($"Error 2: {e.Message}");
                 throw new Exception("No se puede dividir por cero");
             }
@@ -561,9 +659,6 @@ class Program
         catch (Exception e)
         {
             Console.WriteLine($"Error 1: {e.Message}");
-            throw;
         }
     }
 }
-}
-
