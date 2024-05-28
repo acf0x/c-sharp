@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using ConsoleAppEF.Models;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace ConsoleAppEF
@@ -8,7 +9,8 @@ namespace ConsoleAppEF
         static void Main(string[] args)
         {
             Console.Clear();
-            ConsultaConADONET();
+            //ConsultaConADONET();
+            ConsultaConEF();
         }
 
         /// <summary>
@@ -93,6 +95,26 @@ namespace ConsoleAppEF
 
         }
 
+        /// <summary>
+        /// Ejecutamos consultas de datos con Entity Framework Core
+        /// </summary>
+        static void ConsultaConEF()
+        {
+            // SELECT * FROM dbo.Customers
 
+            var context = new NorthwindContext();    // clase dentro de northwind context
+
+            var clientes = context.Customers
+                .Where(r=>r.Country == "Spain")
+                .OrderBy(r=>r.City)
+                .ToList();
+
+            foreach(var cliente in clientes) 
+            {
+                Console.Write($"{cliente.CustomerID.PadLeft(5, ' ')}#");
+                Console.Write($"{cliente.CompanyName.PadRight(20, ' ')}");
+                Console.WriteLine($"{cliente.Country}");
+            }
+        }
     }
 }
