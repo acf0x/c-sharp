@@ -551,7 +551,7 @@ namespace ConsoleApp4
                 .Skip(5)
                 .Take(5);
 
-            var data = DataLists.ListaProductos
+            var data2 = DataLists.ListaProductos
                 .OrderBy(r => r.Descripcion)
                 .Select(r => r)
                 .ToList();
