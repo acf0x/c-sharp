@@ -19,6 +19,7 @@ namespace ConsoleApp4
             Console.WriteLine(fecha2);
             Console.WriteLine(fecha.ToLongDateString);
             Console.Clear();
+            Ejercicio6();
 
 
 
@@ -243,6 +244,7 @@ namespace ConsoleApp4
 
                 var lineas = DataLists.ListaLineasPedido
                     .Where(r => r.IdPedido == pedido.Id)
+                    .Select(r=> new { r.IdProducto, r.Cantidad})
                     .ToList();
 
                 float total = 0;
@@ -251,6 +253,7 @@ namespace ConsoleApp4
                 {
                     var producto = DataLists.ListaProductos
                         .Where(r => r.Id == linea.IdProducto)
+                        
                         .FirstOrDefault();
 
                     Console.WriteLine($"{producto.Id} - {producto.Descripcion} -  Cant. {linea.Cantidad} - Precio {producto.Precio.ToString("N2")}");
@@ -289,43 +292,183 @@ namespace ConsoleApp4
                 })
                 .ToList();
 
+            //CON LINQ
+
+            var lineas2 = from r in DataLists.ListaLineasPedido
+                          where r.IdPedido == numPedido
+                          select new
+                          {
+                              r.IdProducto,
+                              Descripcion = (from s in DataLists.ListaProductos
+                                            where s.Id == r.IdProducto
+                                            select s.Descripcion).FirstOrDefault(),
+                              Precio = (from s in DataLists.ListaProductos
+                                       where s.Id == r.IdProducto
+                                       select s.Precio).FirstOrDefault(),
+                              r.Cantidad
+                          };
+
+
             foreach (var linea in lineas)
                 Console.WriteLine($"{linea.IdProducto} - {linea.Descripcion} -  Cant. {linea.Cantidad} - Precio {linea.Precio.ToString("N2")}");
         }
 
+
         /// <summary>
         /// Mostrar el importe total de un pedido
         /// </summary>
-        static void Ejercicio4()
-        { 
-        
+        static void Ejercicio4a()
+        {
+            Console.Clear();
+            Console.Write("Número de Pedido: ");
+            int numPedido = Convert.ToInt32(Console.ReadLine());
+
+            var lineas = DataLists.ListaLineasPedido
+                .Where(r => r.IdPedido == numPedido)
+                .Select(r => new { r.IdProducto, r.Cantidad })
+                .ToList();
+
+            float total = 0;
+
+
+            foreach (var linea in lineas)
+            {
+                var precio = DataLists.ListaProductos
+                    .Where(r => r.Id == linea.IdProducto)
+                    .Select(r => r.Precio)
+                    .FirstOrDefault();
+
+                total += (linea.Cantidad * precio);
+            }
+            Console.WriteLine("===============================================");
+            Console.WriteLine("TOTAL".PadLeft(39, ' ') + $"   {total.ToString("N2").PadLeft(5, ' ')}");
+            Console.WriteLine("===============================================");
+        }
+
+        /// <summary>
+        /// Mostrar el importe total de un pedido, calculado con LINQ
+        /// </summary>
+        static void Ejercicio4B()
+        {
+            Console.Clear();
+            Console.Write("Número de Pedido: ");
+            int numPedido = Convert.ToInt32(Console.ReadLine());
+
+            var total = DataLists.ListaLineasPedido
+                .Where(r => r.IdPedido == numPedido)
+                .Select(r => r.Cantidad * DataLists.ListaProductos
+                        .Where(s => s.Id == r.IdProducto)
+                        .Select(s => s.Precio)
+                        .FirstOrDefault()).Sum();
+
+            Console.WriteLine(total);
+
+            //TODO CON LINQ
+
+            var total2 = (from r in DataLists.ListaLineasPedido
+                         where r.IdPedido == numPedido
+                         select r.Cantidad * (from s in DataLists.ListaProductos
+                                              where s.Id == r.IdProducto
+                                              select s.Precio).FirstOrDefault()).Sum();
+
+            Console.WriteLine(total2);
         }
 
         /// <summary>
         /// Mostrar los pedidos con lapiceros
         /// </summary>
-        static void Ejercicio5()
-        { }
+        static void Ejercicio5a()
+        {
+            var lapiceroID = (from r in DataLists.ListaProductos
+                              where r.Descripcion == "Lapicero"
+                              select r.Id).FirstOrDefault();
+
+            var pedidos_con_lapiceros = from r in DataLists.ListaLineasPedido
+                            where r.IdProducto == lapiceroID
+                            select r.Id;
+        }
+
+
+        static void Ejercicio5b()
+        {
+            var ids = DataLists.ListaProductos
+                      .Where(r=> r.Descripcion.ToLower().Contains("Lapicero"))
+                      .Select(r=>r.Id)
+                      .ToList();
+
+            var pedidos = DataLists.ListaLineasPedido
+                .Where(r=> ids.Contains(r.IdProducto))
+                .Select(r=>r.IdPedido)
+                .Distinct()
+                .ToList();
+
+            foreach(var pedido in pedidos)
+                Console.WriteLine($"ID Pedido: {pedido.ToString().PadLeft(4, ' ')}");
+
+
+            // CON LINQ
+
+            var ids2 = (from r in DataLists.ListaProductos
+                        where r.Descripcion.ToLower().Contains("lapicero")
+                        select r.Id).ToList();
+
+            var pedidos2 = (from r in DataLists.ListaLineasPedido
+                           where ids2.Contains(r.IdProducto)
+                           select r.IdPedido).Distinct();
+
+
+        }
 
         /// <summary>
         /// Número de pedidos con cuaderno grande
         /// </summary>
+
+        // MIO
         static void Ejercicio6()
         {
             var Lpedidos = DataLists.ListaLineasPedido
-                .Where(r => r.IdProducto = 2)
-                .Select(r => r)
+                .Where(r => r.IdProducto == 2)
+                .Select(r => new {r.Id, r.Cantidad})
                 .ToList();
 
             Console.WriteLine($"Pedidos con cuaderno grande:");
+            Console.WriteLine($"==========================================");
             short contador = 0;
+
             foreach (var pedido in Lpedidos)
             {
                 contador += 1;
-                Console.WriteLine($"Pedido {contador} ID: {pedido.ID}, {pedido.cantidad} cuadernos");
+                Console.WriteLine($"{contador}# ID: {pedido.Id}, {pedido.Cantidad} cuadernos");
             }
+            Console.WriteLine($"==========================================");
             Console.WriteLine($"Número de pedidos con cuaderno grande: {contador}");
+            Console.WriteLine($"Número de pedidos con cuaderno grande: {Lpedidos.Count}"); // lo mismo y no haría falta contador
             Console.WriteLine();
+        }
+
+
+        static void Ejercicio6b()
+        {
+            var pedidos = DataLists.ListaLineasPedido
+                .Where(r => r.IdProducto == 2)
+                .Count();
+
+            var pedidos2 = DataLists.ListaLineasPedido
+                .Count(r => r.IdProducto == 2);
+
+            var pedidos3 = DataLists.ListaLineasPedido
+                .Where(r => r.IdProducto == 2)
+                .Select(r => r.IdPedido)
+                .Distinct()
+                .Count();
+
+            var pedidos4 = (from r in DataLists.ListaLineasPedido
+                            where r.IdProducto == 2
+                            select r.Id).Count();
+
+
+            Console.Clear();
+            Console.WriteLine($"{pedidos} pedidos con cuadernos grandes.");
 
         }
 
@@ -333,7 +476,95 @@ namespace ConsoleApp4
         /// Unidades vendidas de cuaderno pequeño
         /// </summary>
         static void Ejercicio7()
-        { }
+        {
+            var unidades = DataLists.ListaLineasPedido
+                .Where(r => r.IdProducto == 3)
+                .Sum(r => r.Cantidad);
+
+            var unidades2 = DataLists.ListaLineasPedido
+                .Where(r => r.IdProducto == DataLists.ListaProductos
+                                            .Where(s => s.Descripcion.ToLower().Contains("cuaderno pequeño"))
+                                            .Select(s => s.Id)
+                                            .FirstOrDefault())
+                .Sum(r => r.Cantidad);
+
+            var unidades3 = (from r in DataLists.ListaLineasPedido
+                where r.IdProducto == 3
+                select r.Cantidad).Sum();
+
+            var lista = from r in DataLists.ListaLineasPedido
+                             where r.IdProducto == 3
+                             select new { r.IdPedido, r.Cantidad};
+
+            var unid = lista.Sum(r => r.Cantidad);
+
+
+        }
+        
+
+        /// <summary>
+        /// Consultas avanzadas de LINQ con DataLists
+        /// </summary>
+        static void ConsultasAvanzadas()
+        {
+            ////////////////
+            // AGREGACIÓN //
+            ////////////////
+
+            // Count()      -> Cuenta el numero de elementos
+            // Distinct()   -> Retorna valores distintos, eliminando los repetidos de la colección
+            // Max()        -> Valor maximo, se aplica también a los alfanumúricos
+            // Min()        -> Valor minimo, se aplica también a los alfanumericos
+            // Sum()        -> Suma valores numericos
+            // Average()    -> Calcula la media de valores numéricos
+            // Aggregate()  -> Aplica una fórmula o método de agregación
+
+            var demo1 = DataLists.ListaProductos
+                .Where(r => r.Precio > 0.90)
+                .Count();
+
+            var demo2 = DataLists.ListaProductos
+                .Count(r => r.Precio > 0.90);
+
+            var demo3 = (from r in DataLists.ListaProductos
+                         where r.Precio > 0.90
+                         select r).Count();
+
+
+             ////////////////
+            // PAGINACIÓN //      En paginación, MUY importante ORDENAR
+           ////////////////
+           
+            // Ordenación en la base de datos
+            var pag2a = DataLists.ListaProductos
+                .OrderBy(r=>r.Descripcion)
+                .Skip(5)
+                .Take(5)
+                .Select(r=>r)
+                .ToList();
+
+            // Ordenación en el PC 
+            var data = DataLists.ListaProductos
+                .OrderBy(r => r.Descripcion)
+                .Select(r => r)
+                .ToList()
+                .Skip(5)
+                .Take(5);
+
+            var data = DataLists.ListaProductos
+                .OrderBy(r => r.Descripcion)
+                .Select(r => r)
+                .ToList();
+            var p1 = data.Skip(0).Take(5);
+            var p2 = data.Skip(5).Take(5);
+            var p3 = data.Skip(10).Take(5);
+
+
+
+
+
+
+        }
 
 
 
