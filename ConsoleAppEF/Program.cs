@@ -10,12 +10,16 @@ namespace ConsoleAppEF
         {
             Console.Clear();
             //ConsultaConADONET();
-            ConsultaConEF();
+            //ConsultaConEF();
+            //InsertarDatosEF();
+            //ActualizarDatosEF();
+            //EliminarDatosEF();
         }
 
-        /// <summary>
-        /// Ejecutamos una consulta de datos utilizando ADO.NET
-        /// </summary>
+        ////////////////////////////////////////////////////////////
+        /// Ejecutamos una consulta de datos utilizando ADO.NET   //
+        ////////////////////////////////////////////////////////////
+        
         static void ConsultaConADONET()
         {
             // A Access
@@ -95,9 +99,10 @@ namespace ConsoleAppEF
 
         }
 
-        /// <summary>
-        /// Ejecutamos consultas de datos con Entity Framework Core
-        /// </summary>
+        ///////////////////////////////////////////////////////////////
+        /// Ejecutamos consultas de datos con Entity Framework Core  //
+        ///////////////////////////////////////////////////////////////
+        
         static void ConsultaConEF()
         {
             // SELECT * FROM dbo.Customers
@@ -116,5 +121,112 @@ namespace ConsoleAppEF
                 Console.WriteLine($"{cliente.Country}");
             }
         }
+
+
+        static void InsertarDatosEF()
+        {
+            var context = new NorthwindContext();
+            var cliente = new Customer()
+            {
+                CustomerID = "FAD01",
+                CompanyName = "Empresa Uno, SL",
+                ContactName = "Fernando Alonso Diaz",
+                ContactTitle = "Padre",
+                Address = "Avenida paraiso, 33",
+                Region = "Madrid",
+                City = "Madrid",
+                Country = "España",
+                Phone = "900 900 900",
+                Fax = "900 900 900"
+            };
+
+            context.Customers.Add(cliente);
+            context.SaveChanges();
+            Console.WriteLine("Registro Actualizado");
+        }
+
+
+
+        static void ActualizarDatosEF()
+        {
+            var context = new NorthwindContext();
+
+            // OPCION A
+            // Recuperamos el cliente de lpa base de datos, modificamos valores de las propiedades
+            // y guardamos los cambios
+
+            var cliente = context.Customers
+                .Where(r => r.CustomerID == "ACF01")
+                .FirstOrDefault();
+
+            if (cliente == null) Console.WriteLine("NO existe el cliente");
+            else 
+            {
+                cliente.ContactName = "Elon Musgo";
+                cliente.PostalCode = "99999";
+
+                context.SaveChanges();
+
+                Console.WriteLine("Cliente actualizado correctamente");
+            }
+
+            // OPCION B
+            // Instanciamos un objeto que representa un registro existente en la base de datos, pero
+            // con valores diferentes y lo utilizamos para actualizar.
+
+            var cliente2 = new Customer()
+            {
+                CustomerID = "FAD01",
+                CompanyName = "Empresa 33, SL",
+                ContactName = "Fernando Alonso Díaz",
+                ContactTitle = "Padre",
+                Address = "Avenida paraiso, 33",
+                Region = "Madrid",
+                City = "Madrid",
+                Country = "España",
+                Phone = "933 933 933",
+                Fax = "933 933 933"
+            };
+
+         
+            // Método 1
+            context.Entry(cliente2).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+
+            // Método 2
+            context.Customers.Update(cliente2);
+            context.SaveChanges();
+
+        }
+        static void EliminarDatosEF()
+        {
+            var context = new NorthwindContext();
+           
+            
+            // Método 1
+            var cliente = new Customer() { CustomerID = "ACF01" };
+            context.Entry(cliente).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            Console.WriteLine("Cliente eliminado correctamente");
+
+            // Método 2
+            var cliente2 = context.Customers
+                .Where(r => r.CustomerID == "ACF01")
+                .FirstOrDefault();
+
+            if (cliente2 == null) Console.WriteLine("NO existe el cliente");
+            else
+            {
+                context.Customers.Remove(cliente2);
+
+                context.SaveChanges();
+
+                Console.WriteLine("Cliente eliminado correctamente");
+            }
+        }
+
+
+
+
+
     }
 }
