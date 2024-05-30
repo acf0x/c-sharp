@@ -242,9 +242,8 @@ namespace ConsoleAppEF
 
             foreach (var item in empleados)
             {
-                var pedidos = context.Orders
-                    .Where(r => r.EmployeeID == item.EmployeeID)
-                    .ToList();
+                var pedidosCliente = context.Orders
+                    .Where(r => r.EmployeeID == item.EmployeeID);
             }
 
             // Opción B
@@ -320,6 +319,15 @@ namespace ConsoleAppEF
             var pedidos2 = context.Orders
                 .Include(r => r.Customer)
                 .Where(r => r.Customer.Country == "USA");
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // USESQLSERVER (NO USAR)
+
+            var data = context.Customers.FromSqlRaw("SELECT * FROM dbo.Customers");
+
+            foreach (var item in data)
+                Console.WriteLine($" -> {item.CustomerID}# {item.CompanyName}");
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////
