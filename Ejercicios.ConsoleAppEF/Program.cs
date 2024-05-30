@@ -16,7 +16,7 @@ namespace Ejercicios.ConsoleAppEF
             Consulta4();
             Consulta5();
             Consulta6();
-            //Consulta7();
+            Consulta7();
             Consulta8();
             Consulta9();
             Consulta10();
@@ -25,7 +25,7 @@ namespace Ejercicios.ConsoleAppEF
             Consulta13();
             Consulta14();
             Consulta15();
-            //Consulta16();
+            Consulta16();
             //Consulta17();
 
 
@@ -167,8 +167,12 @@ namespace Ejercicios.ConsoleAppEF
             {
                 var context = new NorthwindContext();
 
+                DateTime startDate = new DateTime(1997, 1, 1);
+                DateTime endDate = new DateTime(1997, 7, 15);
+
+
                 var pedidos = context.Orders
-                    //       .Where(r => r.OrderDate.Value >= 1997/01/01 && r.OrderDate.Value <= 1997/09/15)
+                    .Where(r => (r.OrderDate.HasValue && r.OrderDate.Value >= startDate) && (r.OrderDate.HasValue && r.OrderDate.Value <= endDate))
                     .ToList();
 
                 Console.WriteLine("\nConsulta 7: Pedidos entre 01/01/1997 y 15/07/1997:");
@@ -190,7 +194,7 @@ namespace Ejercicios.ConsoleAppEF
 
                 var pedidos = context.Orders
 
-                    .Where(r => r.OrderDate.Value.Year == 1997 && (r.EmployeeID == 1 || r.EmployeeID == 3 || r.EmployeeID == 4 || r.EmployeeID == 8))
+                    .Where(r => (r.OrderDate.HasValue && r.OrderDate.Value.Year == 1997) && (r.EmployeeID == 1 || r.EmployeeID == 3 || r.EmployeeID == 4 || r.EmployeeID == 8))
                     .ToList();
 
                 Console.WriteLine("\nConsulta 8: Pedidos registrados por los empleados con identificador 1, 3, 4 y 8 en 1997:");
@@ -212,7 +216,7 @@ namespace Ejercicios.ConsoleAppEF
 
                 var pedidos = context.Orders
 
-                    .Where(r => r.OrderDate.Value.Year == 1996 && r.OrderDate.Value.Month == 10)
+                    .Where(r => r.OrderDate.HasValue && r.OrderDate.Value.Year == 1996 && r.OrderDate.Value.Month == 10)
                     .ToList();
 
                 Console.WriteLine("\nConsulta 9: Pedidos de octubre de 1996:");
@@ -234,7 +238,7 @@ namespace Ejercicios.ConsoleAppEF
 
                 var pedidos = context.Orders
 
-                    .Where(r => r.OrderDate.Value.Year == 1998 && r.OrderDate.Value.Day == 1)
+                    .Where(r => r.OrderDate.HasValue && r.OrderDate.Value.Year == 1998 && r.OrderDate.Value.Day == 1)
                     .ToList();
 
                 Console.WriteLine("\nConsulta 10: Pedidos realizados los dia uno de cada mes del año 1998:");
@@ -305,7 +309,7 @@ namespace Ejercicios.ConsoleAppEF
                 Console.WriteLine("\nConsulta 13: Listado de los 10 productos más caros con stock:");
                 foreach (var producto in productos)
                 {
-                    Console.WriteLine($"{producto.ProductID}# {producto.ProductName} - Precio: {producto.UnitPrice}");
+                    Console.WriteLine($"{producto.ProductID}# {producto.ProductName} - Precio: {(producto.UnitPrice):F2} euros");
                 }
             }
             /////////////////////////////////////////////////////////////////////////////////
@@ -319,7 +323,7 @@ namespace Ejercicios.ConsoleAppEF
                 var context = new NorthwindContext();
 
                 var clientes = context.Customers
-                    .Where(r => r.CompanyName.StartsWith("B") && r.Country == "UK")
+                    .Where(r => r.CompanyName.ToUpper().StartsWith("B") && r.Country.ToUpper() == "UK")
                     .ToList();
 
                 Console.WriteLine("\nConsulta 14: Clientes de UK y nombre de empresa que comienza por B:");
@@ -340,7 +344,7 @@ namespace Ejercicios.ConsoleAppEF
                 var context = new NorthwindContext();
 
                 var productos = context.Products
-                    .Where(r => (r.CategoryID == 3 || r.CategoryID == 5))
+                    .Where(r => r.CategoryID == 3 || r.CategoryID == 5)
                     .OrderByDescending(r => r.CategoryID)
                     .Take(10)
                     .Select(r => r)
@@ -372,10 +376,11 @@ namespace Ejercicios.ConsoleAppEF
                     .Sum(r => r.UnitPrice);
 
                 Console.WriteLine("\nConsulta 16: Importe total del stock:");
-                foreach (var item in lista)
-                {
-                    Console.WriteLine($"{productos * precios}");
-                }
+                Console.WriteLine($"{(productos * precios):F2} euros");
+          
+                // OTRA OPCIÓN
+                // var importetotal = context.Products
+                //                        .Sum(r => r.UnitsInStock * r.UnitPrice);
             }
             /////////////////////////////////////////////////////////////////////////////////
             // Listado de Pedidos de los clientes de Argentina
@@ -384,28 +389,33 @@ namespace Ejercicios.ConsoleAppEF
             // SELECT CustomerID FROM dbo.Customers WHERE Country = 'Argentina'
             // SELECT * FROM dbo.Orders WHERE CustomerID IN ('CACTU', 'OCEAN', 'RANCH')
 
-            //           static void Consulta17()
-            //           {
-            //               var context = new NorthwindContext();
-            //
-            //            var clientes = context.Customers
-            //                    .Where(r => r.Country == "Argentina")
-            //                    .Select (r => r.CustomerID)
-            //                    .ToList();
-            //
-            //            var pedidos = context.Orders
-            //                    .Where(s => s.CustomerID == "CACTU" || s.CustomerID == "OCEAN" || s.CustomerID == "RANCH" ||))
-            //                    .ToList;
-            //
-            //            Console.WriteLine("\nPedidos de los clientes de Argentina:");
-            //            foreach (var cliente in clientes)
-            //            {
-            //            Console.WriteLine($"{cliente.CustomerID}");
-            //        }
-            //        }
-            //
-            //           // SELECT * FROM dbo.Orders WHERE CustomerID IN (SELECT CustomerID FROM dbo.Customers WHERE Country = 'Argentina')
-            //
+            var context = new NorthwindContext();
+
+            var argentinaIds = context.Customers
+                .Where(r => r.Country.ToLower() == "argentina")
+                .Select(r => r.CustomerID)
+                .ToList();
+
+            var pedidosClientesArgentina = context.Orders
+            .Where(r => argentinaIds.Contains(r.CustomerID))
+            .ToList();
+
+            Console.WriteLine("\nConsulta 17: Pedidos de clientes de Argentina con ID CACTU, OCEAN, RANCH:");
+
+            foreach (var pedido in pedidosClientesArgentina)
+            {
+                Console.Write($"{pedido.OrderID}# ");
+                Console.Write($"Fecha de pedido: {pedido.OrderDate} ");
+                Console.WriteLine($"Cliente: {pedido.CustomerID}");
+            }
+
+            // SELECT * FROM dbo.Orders WHERE CustomerID IN (SELECT CustomerID FROM dbo.Customers WHERE Country = 'Argentina')
+
+            var pedidos2 = context.Orders
+                .Where(s => context.Customers
+                    .Where(r => r.Country.ToLower() == "argentina")
+                    .Select(r => r.CustomerID)
+                    .ToList().Contains(s.CustomerID));
 
         }
     }
