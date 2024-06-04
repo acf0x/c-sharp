@@ -117,13 +117,13 @@ namespace Ejercicios.ConsoleAppHTTP
             Console.Write("Escribe la IP: ");
             string code2 = Console.ReadLine();
 
-            http.BaseAddress = new Uri($"http://ip-api.com/json/{code2}");
-            HttpResponseMessage response = http.GetAsync("").Result;
+            //http.BaseAddress = new Uri($"http://ip-api.com/json/{code2}");
+            //HttpResponseMessage response = http.GetAsync("").Result;
 
+            var response = http.GetAsync($"http://ip-api.com/json/{code2}").Result;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string responseBodyText = response.Content.ReadAsStringAsync().Result;
-
                 var data2 = JsonConvert.DeserializeObject<IP>(responseBodyText);
 
                 Console.WriteLine($"");
