@@ -23,9 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppHTTP", "ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ejercicios.ConsoleAppHTTP", "Ejercicios.ConsoleAppHTTP\Ejercicios.ConsoleAppHTTP.csproj", "{2535DD4F-DFFB-40B6-82FA-AD0B4DF359E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi1", "WebApi1\WebApi1.csproj", "{F042E6DA-054E-41F1-9960-5CF5750C079B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi1", "WebApi1\WebApi1.csproj", "{F042E6DA-054E-41F1-9960-5CF5750C079B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{215F1249-1F32-49C3-A3CB-6EC06307802C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{215F1249-1F32-49C3-A3CB-6EC06307802C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClient", "WebApiClient\WebApiClient.csproj", "{65594CA3-1C95-41C9-A9AA-B9D3CAF0DBD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{215F1249-1F32-49C3-A3CB-6EC06307802C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215F1249-1F32-49C3-A3CB-6EC06307802C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215F1249-1F32-49C3-A3CB-6EC06307802C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65594CA3-1C95-41C9-A9AA-B9D3CAF0DBD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65594CA3-1C95-41C9-A9AA-B9D3CAF0DBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65594CA3-1C95-41C9-A9AA-B9D3CAF0DBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65594CA3-1C95-41C9-A9AA-B9D3CAF0DBD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
