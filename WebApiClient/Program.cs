@@ -13,12 +13,13 @@ namespace WebApiClient
         {
             http = new HttpClient();
             http.BaseAddress = new Uri("https://localhost:7013/api/");
+            http.DefaultRequestHeaders.Add("APIKey", "jP8pz9YDl999yNJSdszJdl2cs>y");
 
             Console.Clear();
 
             try
             {
-                Delete();
+                Get();
             }
             catch (Exception ex)
             {
@@ -32,10 +33,6 @@ namespace WebApiClient
         {
             Console.WriteLine("Referencia del producto: ");
             string id = Console.ReadLine();
-
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine($"\n░░░░░░░░░░░▄▄▀▀▀▀▀▀▀▀▄▄\n░░░░░░░░▄▀▀░░░░░░░░░░░░▀▄▄\n░░░░░░▄▀░░░░░░░░░░░░░░░░░░▀▄\n░░░░░▌░░░░░░░░░░░░░▀▄░░░░░░░▀▀▄\n░░░░▌░░░░░░░░░░░░░░░░▀▌░░░░░░░░▌\n░░░▐░░░░░░░░░░░░▒░░░░░▌░░░░░░░░▐\n░░░▌▐░░░░▐░░░░▐▒▒░░░░░▌░░░░░░░░░▌\n░░▐░▌░░░░▌░░▐░▌▒▒▒░░░▐░░░░░▒░▌▐░▐\n░░▐░▌▒░░░▌▄▄▀▀▌▌▒▒░▒░▐▀▌▀▌▄▒░▐▒▌░▌\n░░░▌▌░▒░░▐▀▄▌▌▐▐▒▒▒▒▐▐▐▒▐▒▌▌░▐▒▌▄▐\n░▄▀▄▐▒▒▒░▌▌▄▀▄▐░▌▌▒▐░▌▄▀▄░▐▒░▐▒▌░▀▄\n▀▄▀▒▒▌▒▒▄▀░▌█▐░░▐▐▀░░░▌█▐░▀▄▐▒▌▌░░░▀\n░▀▀▄▄▐▒▀▄▀░▀▄▀░░░░░░░░▀▄▀▄▀▒▌░▐\n░░░░▀▐▀▄▒▀▄░░░░░░░░▐░░░░░░▀▌▐\n░░░░░░▌▒▌▐▒▀░░░░░░░░░░░░░░▐▒▐\n░░░░░░▐░▐▒▌░░░░▄▄▀▀▀▀▄░░░░▌▒▐\n░░░░░░░▌▐▒▐▄░░░▐▒▒▒▒▒▌░░▄▀▒░▐\n░░░░░░▐░░▌▐▐▀▄░░▀▄▄▄▀░▄▀▐▒░░▐\n░░░░░░▌▌░▌▐░▌▒▀▄▄░░░░▄▌▐░▌▒░▐\n░░░░░▐▒▐░▐▐░▌▒▒▒▒▀▀▄▀▌▐░░▌▒░▌\n░░░░░▌▒▒▌▐▒▌▒▒▒▒▒▒▒▒▐▀▄▌░▐▒▒▌\n   uwu\n");
-            Console.ResetColor();
 
             try
             {

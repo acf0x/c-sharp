@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Database.Models;
+using WebApi1.Middleware;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
 
 namespace WebApi1
@@ -17,8 +20,14 @@ namespace WebApi1
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+            builder.Services.AddSwaggerGen(options => 
+                options.AddSecurityDefinition("APIKey", new OpenApiSecurityScheme {
+                    In = ParameterLocation.Header,
+                    Name = "APIKey",
+                    Type = SecuritySchemeType.ApiKey,
+                    Description = "APIKey necesaria para acceder al servicio." 
+                }));
+            
             builder.Services.AddDbContext<NorthwindContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Northwind")));
 
@@ -35,8 +44,10 @@ namespace WebApi1
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthorization();
 
+            app.UseAutorizacion();
+
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();

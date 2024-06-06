@@ -136,7 +136,7 @@ class Program
         // Comprobaciones de código en la etapa de diseño
 
         // Las variables de tipo OBJECT no permite acceder a los miembros del objeto
-        // para accder tenemos que aplicar la conversión
+        // para acceder tenemos que aplicar la conversión
 
         Object alumno3 = new Alumno();
         ((Alumno)alumno3).Nombre = "Isabel";
