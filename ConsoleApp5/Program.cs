@@ -1,11 +1,12 @@
-﻿namespace ConsoleApp5
+﻿using System.Globalization;
+
+namespace ConsoleApp5
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Herencia();
-            Herencia2();
+            ExtensionTipos();
         }
         /// <summary>
         /// La herencia nos permite crear nuevas clases que reutilizan, extienden y modifican el comportamiento definido en otras clases.
@@ -37,7 +38,7 @@
             Console.WriteLine($"Lista extendida {Alumnos.ToString()}\n");
 
         }
-    
+
         static void Herencia2()
         {
             Animal anfibio = new Anfibio() { Nombre = "Rana" }; // Puede ser tanto clase Animal como Anfibio
@@ -67,11 +68,84 @@
             Console.WriteLine($"{animal.Nombre} - {animal.Especie}");
             Console.WriteLine($"{animal.GetType().ToString()}\n");
 
-            if(animal.GetType() == typeof(Reptil))
+            if (animal.GetType() == typeof(Reptil))
             {
                 ((Reptil)animal).MetodoC(); // conversión de animal a Reptil y entonces invocar MetodoC
             }
         }
-    
+
+        static void Polimorfismo()
+        {
+            Coche coche = new Coche() { Nombre = "Hyundai Tucson", Ruedas = 4 };
+            coche.Iniciar();
+            coche.Parar();
+            Console.WriteLine($"{coche.Nombre}\n");
+
+
+            Avion avion = new Avion() { Nombre = "Airbus A320", Ruedas = 8, Potencia = 8000 };
+            avion.Iniciar();
+            avion.Parar();
+            avion.Despegar();
+            Console.WriteLine($"{avion.Nombre}\n");
+
+            Test2(coche);
+            Test2(avion);
+        }
+
+        static void Test2(IVehiculo vehiculo)
+        {
+            vehiculo.Iniciar();
+            vehiculo.Parar();
+            Console.WriteLine($"{vehiculo.Nombre}\n");
+
+            if (vehiculo.GetType() == typeof(Avion)) ((Avion)vehiculo).Despegar();
+        }
+
+        static void ClasesGenericas()
+        {
+            DemoString demo1 = new DemoString("Hola Mundo!!");
+            demo1.Metodo();
+            Console.WriteLine("");
+
+            DemoGenerica<string> demo1b = new DemoGenerica<string>("Hola Mundo!!");
+            demo1b.Metodo();
+            Console.WriteLine("");
+
+            DemoInt demo2 = new DemoInt(33);
+            demo2.Metodo();
+            Console.WriteLine("");
+
+            DemoGenerica<int> demo2b = new DemoGenerica<int>(33);
+            demo2b.Metodo();
+            Console.WriteLine("");
+
+            DemoAlumno demo3 = new DemoAlumno(new Alumno() { Nombre = "Julia", Apellidos = "Sanz" });
+            demo3.Metodo();
+            Console.WriteLine();
+
+            DemoGenerica<Alumno> demo3b = new DemoGenerica<Alumno>(new Alumno() { 
+                Nombre = "Julia", 
+                Apellidos = "Sanz" 
+            });
+            demo3b.Metodo();
+            Console.WriteLine();
+        }
+
+        static void ExtensionTipos()
+        {
+            string texto = "En un lugar de la mancha de cuyo nombre...";
+            Console.WriteLine($"Texto original: {texto}");
+            Console.WriteLine($"Texto formato titulo: {ConvertToTitleCase(texto)}");
+            Console.WriteLine($"Texto formato titulo: {texto.ToTitle()}"); // Esto gracias a la clase StringExtensions
+
+            Console.WriteLine($"Caracteres: {texto.Length}");
+            Console.WriteLine($"Palabras: {texto.WordCount()}"); // Esto gracias a la clase StringExtensions
+        }
+
+        static string ConvertToTitleCase(string texto)
+        {
+            if (string.IsNullOrEmpty(texto)) return texto;
+            else return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(texto);
+        }
     }
 }

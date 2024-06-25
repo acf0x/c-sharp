@@ -88,17 +88,21 @@ namespace ConsoleApp5
 
     public class Coche : IVehiculo
     {
-        public string Nombre { get ; set; }
+        public string Nombre { get; set; }
         public int Ruedas { get; set; }
         public void Iniciar() => Console.WriteLine("Coche, Iniciar");
         public void Parar() => Console.WriteLine("Coche, Parar");
+        void IVehiculo.Iniciar() => Console.WriteLine("Coche como Vehículo, Iniciar"); // esto afectaría al método Test2 en el program
+        void IVehiculo.Parar() => Console.WriteLine("Coche como Vehículo, Parar");
     }
 
     public class Avion : IVehiculo
     {
         public string Nombre { get; set; }
         public int Ruedas { get; set; }
-        public void Iniciar() => Console.WriteLine("Avion, Iniciar");
+        public int Potencia { get; set; }
+        public void Iniciar() => Console.WriteLine($"Avion, Iniciar Potencia {Potencia}");
+        void IVehiculo.Iniciar() => Console.WriteLine($"Avion, Iniciar");
         public void Parar() => Console.WriteLine("Avion, Parar");
         public void Despegar() => Console.WriteLine("Avion, Despegar");
     }
@@ -124,6 +128,80 @@ namespace ConsoleApp5
         {
             return $"{this.Nombre} {this.Apellidos}";  // <- gracias a esto, el OutputAll no retornará el nombre del objeto, sino Nombre y Apellidos
         }
+    }
 
+    public class DemoString
+    {
+        public string Data { get; set; }
+        public void Metodo() => Console.WriteLine($"Texto: {Data}");
+        public DemoString() { }
+        public DemoString(string data)
+        {
+            this.Data = data;
+        }
+    }
+    public class DemoInt
+    {
+        public int Data { get; set; }
+        public void Metodo() => Console.WriteLine($"Número: {Data.ToString()}");
+        public DemoInt() { }
+        public DemoInt(int data)
+        {
+            this.Data = data;
+        }
+    }
+    public class DemoAlumno
+    {
+        public Alumno Data { get; set; }
+        public void Metodo() => Console.WriteLine($"Alumno: {Data.Nombre} {Data.Apellidos}");
+        public DemoAlumno() { }
+        public DemoAlumno(Alumno data)
+        {
+            this.Data = data;
+        }
+    }
+
+    public class DemoGenerica<T> // Sustituye a todas las DemoX anteriores, para no tener que hacer 1 por cada tipo. Se indica <T> porque puede ser de muchos tipos
+    {
+        public T Data { get; set; }
+        public void Metodo()
+        {
+            switch(typeof(T).Name)
+            {
+                case "String":
+                    Console.WriteLine($"Texto: {Data}");
+                    break;
+                case "Int32":
+                    Console.WriteLine($"Número: {Data}");
+                    break;
+                case "ConsoleApp5.Alumno":
+                    dynamic temp = this.Data;
+                    Console.WriteLine($"Alumno: {temp.Nombre} {temp.Apellidos}");
+                    break;
+                default:
+                    Console.WriteLine($"{typeof(T).Name} {Data}");
+                    break;
+            }
+        }
+        public DemoGenerica() { }
+        public DemoGenerica(T data)
+        { 
+            this.Data = data; 
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static string ToTitle( this string str )
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+            else return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
+        }
+
+        public static int WordCount(this string str)
+        {
+            if (string.IsNullOrEmpty(str)) return 0;
+            else return str.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
+        }
     }
 }
