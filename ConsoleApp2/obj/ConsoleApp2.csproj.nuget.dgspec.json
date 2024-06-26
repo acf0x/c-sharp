@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj": {}
+    "C:\\EOIFormación\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj": {}
   },
   "projects": {
-    "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj": {
+    "C:\\EOIFormación\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj",
+        "projectUniqueName": "C:\\EOIFormación\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj",
         "projectName": "ConsoleApp2",
-        "projectPath": "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj",
+        "projectPath": "C:\\EOIFormación\\c-sharp\\ConsoleApp2\\ConsoleApp2.csproj",
         "packagesPath": "C:\\Users\\alvar\\.nuget\\packages\\",
-        "outputPath": "C:\\EOIFormación\\c#\\c-sharp\\ConsoleApp2\\obj\\",
+        "outputPath": "C:\\EOIFormación\\c-sharp\\ConsoleApp2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\alvar\\AppData\\Roaming\\NuGet\\NuGet.Config",
